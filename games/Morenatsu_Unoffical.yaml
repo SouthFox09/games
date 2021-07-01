@@ -3,6 +3,8 @@ name:  Morenatsu (Unoffical ver) / 漏れなつ。（非公式版）
 description: |
   This unofficial version was made by adding the Torahiko route scenario and some new graphics (that unrelated person made) to official “Morenatsu ver.3.5''
 
+description-format: markdown
+
 tags:
   author:
     - unknown-placeholder
@@ -37,8 +39,9 @@ tags:
 links:
   - name: Original Japanese version archive
     uri: https://drive.google.com/uc?id=1KYEOnr9PcQYg7a2IsMKDDzxbPI_5xISo&export=download
-  - name: .unofficial-ver-zh-cn
-    uri: https://srk.im/thread-3-1-1.html
+  - name: .unofficial-version-zh
+    uri: https://mega.nz/file/ruAwRZ6L#Keo5NXxS8uK3FJyK2mX_Rgatqlj0Q-REGorObG88EBo
+    #uri: https://srk.im/thread-3-1-1.html
 
 thumbnail: thumbnail.jpg
 

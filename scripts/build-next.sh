@@ -21,34 +21,95 @@ set -e
 
 if [ -n "$(git status --porcelain)" ]; then
 	echo "Working space MUST be clean while doing FGI-next build"
+	echo "Running git status..."
+	git status
 	echo "Exiting..."
+	exit 1
 fi
 
 rm -f .patches_info
 
-git branch --list "next-*" | while read -r branch ; do
-	git log --pretty='format:%H  %s' "..$branch" --reverse >> .patches_info
-	echo '' >> .patches_info
-done
+die() {
+	echo "$1"
+	exit 2
+}
 
-cat .patches_info | while read -r i ; do
-	echo "Applying patch $i"
-	i="${i%% *}"
-	git diff-tree -p "$i" | patch -p1
-done
+init() {
+	test -z "$1" && die "missing remote name"
+	git branch -r --list "$1/next-*" | while read -r branch ; do
+		lb="${branch#*/}"
+		echo "create local branch $lb"
+		git branch "$lb" "${branch}"
+	done
 
-mkdir -p extraui
-cat > extraui/en.yaml <<EOF
+}
+
+build() {
+	git branch --list "next-*" | while read -r branch ; do
+		git log --pretty='format:%H  %s' "..$branch" --reverse >> .patches_info
+		echo '' >> .patches_info
+	done
+
+	cat .patches_info | while read -r i ; do
+		echo "Applying patch $i"
+		i="${i%% *}"
+		git diff-tree -p --binary "$i" | git apply
+	done
+
+	mkdir -p extraui
+	cat > extraui/en.yaml <<EOF
 infobar: >
-  <i class="fas fa-exclamation-circle"></i> This is FGI-next, a unstable preview contains many changes that may be finally rejected. <a href="https://furrygames.top/">Click here to switch to the stable version</a>
+  This is FGI-next, experimental preview build of FGI, which may contain many changes that are under testing and may even be broken. <a href="https://furrygames.top/">Switch to stable version</a>
 EOF
-cat > extraui/zh-cn.yaml <<EOF
+	cat > extraui/zh-cn.yaml <<EOF
 infobar: >
-  <i class="fas fa-exclamation-circle"></i> 这是 FGI-next，一个 FGI 的实验性预览构建，可能包含很多最终被否决的更改。<a href="https://furrygames.top/">点击此处切换到稳定版本</a>
+  这是 FGI-next，FGI 的实验性预览构建，它可能包含很多正在测试中的改动，甚至可能会影响正常使用。<a href="https://furrygames.top/">切换到稳定版本</a>
+EOF
+	cat > extraui/zh-tw.yaml <<EOF
+infobar: >
+  這是 FGI-next，FGI 的實驗性預覽構建，它可能包含很多正在測試中的改動，甚至可能會影響正常使用。<a href="https://furrygames.top/">切換到穩定版本</a>
 EOF
 
-./zhconv.py --no-builtin extraui/zh-cn.yaml:extraui/zh-tw.yaml
-./generate.py --next --images-candidate-webp --no-sitemap --extra-ui extraui --with-rss "$1"
+	UIMOD=""
+	if [ -d staging-ui ]; then
+		echo "staging-ui detected, uimod plugin will be loaded."
+		UIMOD="--plugin uimod,mod=staging-ui"
+	fi
+
+	./generate.py --next \
+		--images-candidate-webp \
+		--no-sitemap \
+		--extra-ui extraui \
+		--with-rss \
+		$UIMOD \
+		--plugin steam-cdn-unite,verbose=1 "$1"
+	cat > "$1/robots.txt" <<EOF
+User-agent: *
+Disallow: /
+EOF
+}
+
+action="$1"
+
+case "$action" in
+init)
+	init "${2}"
+	;;
+build)
+	build "${2:-output-next}"
+	;;
+clean-tree)
+	;;
+*)
+	cat <<EOF
+usage: build-next.sh <action> [arguments ...]
+
+	init <remote name>
+	build [output path]
+	clean-tree
+EOF
+	;;
+esac
 
 git reset --hard
 git clean -f -d

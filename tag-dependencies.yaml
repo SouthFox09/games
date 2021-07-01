@@ -1,11 +1,20 @@
-_metazoa: &metazoa
-  cat: [ 'felidae' ]
-  tiger: [ 'felidae' ]
-  lion: [ 'felidae' ]
-  leopard: [ 'felidae' ]
-  snow-leopard: [ 'felidae' ]
-  cheetah: [ 'felidae' ]
-  lynx: [ 'felidae' ]
+# WARNING
+# THIS FILE IS DEPRECATED!
+# PLEASE DO NOT USE THIS FILE TO CREATE NEW TAG DEPENDENCIES
+# USE implication KEYWORD IN tags.yaml FILE INSTEAD.
+#
+# THIS FILE IS ALSO PARSED BY FGI NOW, BUT MAY BE REMOVED IN FUTURE.
+#
+# To see all tag dependencies, please use `./scripts/dbutils.sh show-tagdep`
+
+_mf: &mf
+  cat: [ 'feline' ]
+  tiger: [ 'feline' ]
+  lion: [ 'feline' ]
+  leopard: [ 'feline' ]
+  snow-leopard: [ 'feline' ]
+  cheetah: [ 'feline' ]
+  lynx: [ 'feline' ]
 
   dog: [ 'canine' ]
   wolf: [ 'canine' ]
@@ -20,10 +29,16 @@ _metazoa: &metazoa
   crocodile: [ 'reptilia' ]
   snake: [ 'reptilia' ]
 
+  transfur: [ 'transform' ]
+
 male:
-  <<: *metazoa
+  <<: *mf
 female:
-  <<: *metazoa
+  <<: *mf
+
+misc:
+  co-op: [ 'multiplayer' ]
+  pvp: [ 'multiplayer' ]
 
 platform:
   shockwave-flash: [ 'misc:adobe-flash' ]

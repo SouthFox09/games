@@ -17,11 +17,14 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # 
 
-from fgi import image
-from fgi.i18n import get, get_desc
+import os
+import json
+import base64
 
-class searchdb:
-    def __init__(self, no_data=False):
+class SearchDatabase:
+    def __init__(self, fctx, no_data=False):
+        self.fctx = fctx
+
         self.db = {}
         self.db["rtag"] = {}
         self.db["data"] = {}
@@ -31,32 +34,42 @@ class searchdb:
         self.db[k] = v
 
     def update(self, game):
-        if 'expunge' in game:
+        if game.expunge or \
+                self.no_data:
             return
 
-        for ns, tags in game["tags"].items():
+        for ns, tags in game.tags.items():
             for v in tags:
                 tag = ns + ":" + v
                 if tag not in self.db["rtag"]:
                     self.db["rtag"][tag] = []
-                self.db["rtag"][tag].append(game["id"])
+                self.db["rtag"][tag].append(game.id)
 
+        data = {}
+        data["tr"] = {}
+        data["name"] = game.name
+        data["brief"] = game.description.brief_html
+        data["thumbnail"] = game.thumbnail.dict()
+        data["mtime"] = game.mtime
+
+        for lang in game.tr:
+            data["tr"][lang] = {}
+            if game.tr[lang].name:
+                data["tr"][lang]["name"] = game.tr[lang].name
+            if game.tr[lang].description:
+                data["tr"][lang]["brief"] = game.tr[lang].description.brief_html
+
+        self.db["data"][game.id] = data
+
+    def write_to_file(self, output):
         if not self.no_data:
-            data = {}
-            data["tr"] = {}
-            data["name"] = game["name"]
-            desc = game["description"]
-            desc = desc[:480] + (desc[480:] and '...')
-            data["description"] = desc
-            data["thumbnail"] = image.uri("..", game["thumbnail"], game["id"])
+            data = json.dumps(self.db, separators=(',', ':'))
 
-            for lang in game["tr"]:
-                data["tr"][lang] = {}
-                if "name" in game["tr"][lang]:
-                    data["tr"][lang]["name"] = game["tr"][lang]["name"]
-                if "description" in game["tr"][lang]:
-                    desc = game["tr"][lang]["description"]
-                    desc = desc[:480] + (desc[480:] and '...')
-                    data["tr"][lang]["description"] = desc
+            with open(os.path.join(output, "scripts", "searchdb.json"), "w") as f:
+                f.write(data)
 
-            self.db["data"][game["id"]] = data
+            if self.fctx.args.file_uri_workaround:
+                with open(os.path.join(output, "scripts", "searchdb_offline.js"), "w") as f:
+                    f.write("var _searchdb=JSON.parse(atob('")
+                    f.write(base64.b64encode(data.encode('utf-8')).decode('ascii'))
+                    f.write("'))")

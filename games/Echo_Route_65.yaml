@@ -3,6 +3,8 @@ name: 'Echo: Route 65'
 description: |
   The story of the Echo: Route 65 visual novel is centered on the protagonist, Chase, a teenager in the rural southwest whose parents just found out he was gay in a less-than-dignified way. After getting off the bus from school, he flees facing his new reality as an outed individual and goes a nighttime adventure along a stretch of road called Route 65.
 
+description-format: markdown
+
 tags:
   author:
     - 'The Echo Project'
@@ -13,6 +15,9 @@ tags:
   male:
     - bull
     - otter
+    - lynx
+    - lizard
+    - wolf
   male:
     - fox
   misc:
@@ -21,6 +26,7 @@ tags:
     - engine-renpy
   lang:
     - en
+    - zh-unofficial
   publish:
     - itchio
   platform:
@@ -36,6 +42,8 @@ links:
     uri: patreon:EchoGame
   - name: .twitter
     uri: twitter:EchoTheVN 
+  - name: .unofficial-version-zh
+    uri: FGI-misc-page:Echo_Route_65-unofficial-l10n-zh-redir
 
 thumbnail: thumbnail.jpg
 

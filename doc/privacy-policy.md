@@ -4,9 +4,14 @@ Your privacy is extremely important. We firmly believe that user privacy and dat
 
 ## What we collect, store and how we use it
 
-By default, we do NOT collect and store any personal information about you. It is currently a static site. And in the future, you will be able to continue to enjoy services (static site) no less than current without using dynamic functions.
+By default, we do NOT collect and store any personal information about you.
 
-In the future, we may add some enhancements, such as posting comments. When using these enhanced functions, we may collect some necessary information and give you appropriate prompts before using them. The privacy policy will also be updated in the future.
+In some cases, we will collect the necessary information. This is shown in the table below.
+
+| Case | The data we will collect |
+|-|-|
+| Add Comments | Your IP address.<br>Your Browser type, version and language.<br>The time of the request. |
+| The others   | No data will be collected. |
 
 We will NEVER share any personal information collected to third parties.
 
@@ -14,11 +19,13 @@ We will NEVER share any personal information collected to third parties.
 
 We currently do not use cookies. But we are using Cloudflare CDN.
 
-Cloudflare will make a cookie called `__cfduid`. For more infomations, see their [document](https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies) and [privacy policy](https://www.cloudflare.com/privacypolicy/).
+Cloudflare may use some cookies. see [this](https://support.cloudflare.com/hc/en-us/articles/200170156-Understanding-the-Cloudflare-Cookies). In most cases, we do not use the this Cloudflare function, so you should not be affected by it usually.
+
+Cloudflare's [privacy policy](https://www.cloudflare.com/privacypolicy/).
 
 In the future, we may use cookies. We will remind you before using cookies. The privacy policy will also be updated.
 
-We are using Local Storage to save your preferences in your browser (such as showing sensitive contents). These Preferences will never be transferred to other computers in any form.
+We are using Local Storage to save your preferences (such as showing sensitive contents) and name, email, website that you have typed in comments box in your browser. Preferences will never be transferred to other computers in any form.
 
 ### Third-party (external websites) cookies
 

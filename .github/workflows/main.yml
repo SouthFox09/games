@@ -12,6 +12,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
+        submodules: true
 
     - name: tg-notify
       env:
@@ -24,18 +25,35 @@ jobs:
     - name: install-dep
       run: |
         sudo apt -y update || true
-        sudo apt -y install git python3 python3-yaml python3-jinja2 python3-pip python3-setuptools python3-pil webp
+        sudo apt -y install git python3 python3-yaml python3-jinja2 python3-pip python3-setuptools python3-pil python3-bs4 webp
         pip3 install --user git+https://github.com/FurryGamesIndex/python-markdown2
+
+        python3 --version
+        cwebp -version
 
     - name: fix-mtime
       run: |
         ./scripts/fix-mtime.sh
 
-    - name: gen
+    - name: build
       run: |
-        python3 --version
-        cwebp -version
-        ./generate.py --images-candidate-webp --with-rss output
+        ./generate.py \
+            --images-candidate-webp \
+            --with-rss \
+            --plugin steam-cdn-unite,verbose=1 \
+            output
+
+    - name: build-classic-ui
+      run: |
+        ./generate.py \
+            --images-candidate-webp \
+            --with-rss \
+            --plugin steam-cdn-unite,verbose=1 \
+            --plugin uimod,mod=classic-ui/pioneer \
+            --plugin webp-converter-stub \
+            output/classic-ui/ || rm -rf output/classic-ui
+
+        [ -d output/classic-ui/assets ] && rm -rf output/classic-ui/assets && ln -sf ../assets output/classic-ui/assets
 
     - name: ssh-key
       uses: shimataro/ssh-key-action@v2
@@ -55,16 +73,66 @@ jobs:
         git remote add origin git@github.com:FurryGamesIndex/FurryGamesIndex.github.io
         git add .
         git commit -m 'deploy website'
+        echo "FGI_GITHUB_PAGES_REV=$(git rev-parse HEAD)" >> "${GITHUB_ENV}"
         git push -f origin master
         cd ..
         rm -rf output
         mv _git .git
 
+    - name: cn-build
+      run: |
+        ./generate.py \
+            --no-sitemap \
+            --images-candidate-webp \
+            --with-rss \
+            --plugin steam-cdn-unite,cdn=china \
+            --plugin cn-optimize,rev="$FGI_GITHUB_PAGES_REV" \
+            --plugin webp-converter-stub \
+            output-cn
+
+    - name: cn-deploy
+      run: | 
+        mv .git _git
+        echo -e "Host gitlab.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+        git config --global user.email "noreply@example.com"
+        git config --global user.name "deploy-bot"
+        cd output-cn
+        git init
+        git remote add origin git@gitlab.com:furrygamesindex/cn-netlify-build.git
+        git add .
+        git commit -m 'deploy cn website'
+        git push -f origin master
+        cd ..
+        rm -rf output-cn
+        mv _git .git
+
+    - name: next-build
+      run: |
+        ./scripts/build-next.sh init origin
+        ./scripts/build-next.sh build output-next && echo "FGI_NEXT_DONE=1" >> "${GITHUB_ENV}" || true
+
+    - name: next-deploy
+      if: ${{ env.FGI_NEXT_DONE == '1' }}
+      run: |
+        mv .git _git
+        echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+        git config --global user.email "noreply@example.com"
+        git config --global user.name "deploy-bot"
+        cd output-next
+        git init
+        git remote add origin git@github.com:FurryGamesIndex/FurryGamesIndex.github.io
+        git add .
+        git commit -m 'deploy FGI-next website'
+        git push -f origin master:next
+        cd ..
+        rm -rf output-next
+        mv _git .git
+
     - name: sync-mirror
       run: |
-        echo -e "Host gitee.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-        git push git@gitee.com:furrygamesindex/games.git master || true
-        echo -e "Host gitlab.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-        git push git@gitlab.com:furrygamesindex/games.git master || true
-        echo -e "Host bitbucket.org\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-        git push git@bitbucket.org:furrygamesindex/games.git master || true
+        echo -e "Host gitee.com\n\tStrictHostKeyChecking no\n\tConnectTimeout 5\n" > ~/.ssh/config
+        git push -f git@gitee.com:furrygamesindex/games.git master || true
+        echo -e "Host gitlab.com\n\tStrictHostKeyChecking no\n\tConnectTimeout 5\n" > ~/.ssh/config
+        git push -f git@gitlab.com:furrygamesindex/games.git master || true
+        echo -e "Host bitbucket.org\n\tStrictHostKeyChecking no\n\tConnectTimeout 5\n" > ~/.ssh/config
+        git push -f git@bitbucket.org:furrygamesindex/games.git master || true

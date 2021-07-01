@@ -1,0 +1,15 @@
+name: The Echo Project
+
+type: small-team
+
+avatar: The_Echo_Project.jpg
+
+links:
+  - name: .twitter
+    uri: twitter:EchoTheVN
+  - name: .furaffinity
+    uri: furaffinity:echoproject
+  - name: .patreon
+    uri: patreon:EchoGame
+  - name: .discord
+    uri: discord:WaGxhH2

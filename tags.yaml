@@ -103,6 +103,18 @@ roguelike:
     en: 'This game is a Roguelike game'
     zh-cn: 'Roguelike 游戏'
 
+sports:
+  namespaces: [ type ]
+  explanation:
+    en: 'This game is a sports game'
+    zh-cn: '体育游戏'
+
+non-indie:
+  namespaces: [ type ]
+  explanation:
+    en: 'This game is a non-indie game'
+    zh-cn: '非独立 游戏'
+
 bara:
   namespaces: [ type ]
   explanation:
@@ -118,8 +130,29 @@ yuri:
 yiff:
   namespaces: [ type ]
   explanation:
-    en: 'Contains adult (R18) sensitive contents'
-    zh-cn: '包含成人（R-18）限制级内容的作品'
+    en: 'Contains adult contents. Pages that contain this tag will display a sensitive content warning message.'
+    zh-cn: '包含成人（R-18）内容的作品。包含此标签的页面将显示敏感内容警告信息。'
+
+gore:
+  namespaces: [ type ]
+  explanation:
+    en: 'Contains grotesque contents. Pages that contain this tag will display a sensitive content warning message.'
+    zh-cn: '包含怪诞内容的作品。包含此标签的页面将显示敏感内容警告信息。'
+
+comedy:
+  namespaces: [ type ]
+  explanation:
+    en: 'STUB'
+
+tragedy:
+  namespaces: [ type ]
+  explanation:
+    en: 'STUB'
+
+horror:
+  namespaces: [ type ]
+  explanation:
+    en: 'STUB'
 
 ###################################################
 ###################################################
@@ -150,14 +183,16 @@ yiff:
         因为它们将在必要时自动被添加
         （如您添加 `male:cat` 标签，该游戏将自动继承 `male:felidae` 标签）
 
-felidae:
+feline:
   namespaces: [ male, female ]
+  alias: [ felidae ]
   explanation:
     en: 'Main characters include feline furries'
     zh-cn: '主要角色包括猫科兽人'
 
 canine:
   namespaces: [ male, female ]
+  alias: [ canidae ]
   explanation:
     en: 'Main characters include canine furries'
     zh-cn: '主要角色包括犬科兽人'
@@ -189,12 +224,14 @@ dragon:
 
 lung:
   namespaces: [ male, female ]
+  alias: [ long, chinese-dragon ]
   explanation:
     en: 'Main characters include lung (Chinese dragon) furries'
     zh-cn: '主要角色包括东方龙兽人'
 
 mouse:
   namespaces: [ male, female ]
+  alias: [ misc, rat ]
   explanation:
     en: 'Main characters include mouse furries'
     zh-cn: '主要角色包括鼠兽人'
@@ -231,6 +268,7 @@ horse:
 
 rabbit:
   namespaces: [ male, female ]
+  alias: [ hare, leporids ]
   explanation:
     en: 'Main characters include rabbit furries'
     zh-cn: '主要角色包括兔兽人'
@@ -265,6 +303,12 @@ shark:
     en: 'Main characters include shark furries'
     zh-cn: '主要角色包括鲨鱼兽人'
 
+dolphin:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'Main characters include dolphin furries'
+    zh-cn: '主要角色包括海豚兽人'
+
 deer:
   namespaces: [ male, female ]
   explanation:
@@ -276,6 +320,36 @@ bird:
   explanation:
     en: 'Main characters include bird furries'
     zh-cn: '主要角色包括鸟兽人'
+
+red-panda:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'Main characters include red panda furries'
+    zh-cn: '主要角色包括小熊猫兽人'
+
+kangaroo:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'Main characters include kangaroo furries'
+    zh-cn: '主要角色包括袋鼠兽人'
+
+hedgehog:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'Main characters include hedgehog furries'
+    zh-cn: '主要角色包括刺猬兽人'
+
+frog:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'Main characters include frog furries'
+    zh-cn: '主要角色包括蛙兽人'
+
+beaver:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'Main characters include beaver furries'
+    zh-cn: '主要角色包括河狸兽人'
 
 ###################################################
 
@@ -335,6 +409,7 @@ lynx:
 
 dog:
   namespaces: [ male, female ]
+  alias: [ shibainu, husky ]
   explanation:
     en: 'Main characters include dog furries'
     zh-cn: '主要角色包括犬兽人'
@@ -432,6 +507,12 @@ non-anthro:
     en: 'Main characters include non-anthro furries'
     zh-cn: '主要角色包括非人形 furry（纯兽）（动物形态，但通常具有高级智慧）'
 
+funny-animal:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+    zh-cn: 'STUB'
+
 ###################################################
 
 '@class:male+female/non-species':
@@ -449,13 +530,13 @@ males-only:
   namespaces: [ male ]
   explanation:
     en: 'Main characters are all males (only in namespace male)'
-    zh: '主要角色只有男性（只出现于 male 命名空间）'
+    zh-cn: '主要角色只有雄性（只出现于 male 命名空间）'
 
 females-only:
   namespaces: [ female ]
   explanation:
     en: 'Main characters are all females (only in namespace female)'
-    zh-cn: '主要角色只有女性（只出现于 female 命名空间）'
+    zh-cn: '主要角色只有雌性（只出现于 female 命名空间）'
 
 shota:
   namespaces: [ male ]
@@ -474,6 +555,12 @@ muscle:
   explanation:
     en: 'Main characters include muscle characters'
     zh-cn: '主要角色中包括肌肉丰满的角色'
+
+transform:
+  namespaces: [ male, female ]
+  alias: [ transformation ]
+  explanation:
+    en: 'Main characters may transform'
 
 transfur:
   namespaces: [ male, female ]
@@ -498,6 +585,11 @@ blowjob:
   explanation:
     en: 'Main characters may do a blowjob'
     zh-cn: '主要角色之间包括口交性行为'
+
+face-fucking:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'Face-fucking may occur between main characters, not to be confused with `blowjob`.'
 
 frottage:
   namespaces: [ male, female ]
@@ -531,6 +623,7 @@ rimjob:
 
 footjob:
   namespaces: [ male, female ]
+  implication: [ paw-fetish ]
   explanation:
     en: 'Main characters may use feet to sexually stimulate another participant'
     zh-cn: '主要角色之间出现用脚对另一角色进行性刺激'
@@ -551,6 +644,11 @@ animal-on-furry:
   explanation:
     en: 'Sexual activity between a animal/non-anthro and a furry'
     zh-cn: '主要角色中，动物或纯兽（非人形 furry）和兽人发生了性关系'
+
+nakadashi:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
 
 ###################################################
 
@@ -581,6 +679,7 @@ mind-break:
 
 mind-control:
   namespaces: [ male, female ]
+  alias: [ hypnosis ]
   explanation:
     en: ''
     zh-cn: '强迫参与者（违背自己的意愿）自己做某事（催眠）'
@@ -681,6 +780,16 @@ vore:
     en: 'Main characters may swallow or be swallowed whole via the mouth.'
     zh-cn: '主要角色可能（从嘴）吞入某个角色或被某个角色吞人'
 
+slit-vore:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'Main characters may swallow or be swallowed whole via the genital slit.'
+
+cock-vore:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'Main characters may swallow or be swallowed whole via the penis.'
+
 fisting:
   namespaces: [ male, female ]
   explanation:
@@ -690,14 +799,98 @@ fisting:
 bondage:
   namespaces: [ male, female ]
   explanation:
-    en: ''
-    zh-cn: '主要角色可能出现绑缚（BDSM）'
+    en: 'Bondage (BDSM), see <https://en.wikipedia.org/wiki/Bondage_(BDSM)>'
+    zh-cn: '主要角色可能出现绑缚（BDSM），请查看：<https://en.wikipedia.org/wiki/Bondage_(BDSM)>'
+
+master-slave:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'Master/slave (BDSM), see <https://en.wikipedia.org/wiki/Master/slave_(BDSM)>'
+    zh-cn: '主要角色之间可能出现主人与奴隶 (BDSM), 请查看：<https://en.wikipedia.org/wiki/Master/slave_(BDSM)>'
+
+dominance-submission:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'Dominance/submission (BDSM), see <https://en.wikipedia.org/wiki/Dominance_and_submission>'
+    zh-cn: '主要角色之间可能出现支配与臣服 (BDSM), 请查看：<https://en.wikipedia.org/wiki/Dominance_and_submission>'
 
 public-use:
   namespaces: [ male, female ]
   explanation:
     en: ''
     zh-cn: '主要角色可能成为肉便器'
+
+micro-macro:
+  namespaces: [ male, female ]
+  alias: [ macro-micro ]
+  explanation:
+    en: 'STUB'
+
+mawplay:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+
+cock-worship:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+
+chastity-cage:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+
+belly-riding:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+
+belly-riding:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+
+living-condom:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+
+living-toy:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+
+paw-fetish:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+
+quishing:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+
+stomping:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+
+gynomorph:
+  namespaces: [ male, female ]
+  alias: [ dickgirl ]
+  explanation:
+    en: 'STUB'
+
+cuntboy:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
+
+violent-penetration:
+  namespaces: [ male, female ]
+  explanation:
+    en: 'STUB'
 
 
 ###################################################
@@ -732,6 +925,12 @@ multiplayer:
   explanation:
     en: 'The game is multiplayer or includes multiplayer mode'
     zh-cn: '游戏是多人游戏或包括多人模式'
+
+co-op:
+  namespaces: [ misc ]
+  explanation:
+    en: 'The game has cooperative game mode'
+    zh-cn: '游戏支持合作模式'
 
 pvp:
   namespaces: [ misc ]
@@ -768,6 +967,16 @@ engine-godot:
     en: 'The game is developed using GoDot engine'
     zh-cn: '游戏使用了 GoDot 引擎'
 
+engine-ue4:
+  namespaces: [ misc ]
+  explanation:
+    en: 'The game is developed using Unreal Engine 4'
+
+engine-tyranobuilder:
+  namespaces: [ misc ]
+  explanation:
+    en: 'The game is developed using TyranoBuilder'
+
 adobe-flash:
   namespaces: [ misc ]
   explanation:
@@ -780,23 +989,33 @@ multiple-endings:
     en: 'There are multiple different endings in the game'
     zh-cn: '游戏有多种结局'
 
-work-in-process:
-  namespaces: [ misc ]
-  explanation:
-    en: 'The game is ongoing'
-    zh-cn: '游戏尚未完结（但有先行预览版本或 Demo）'
-
 multiple-series:
   namespaces: [ misc ]
   explanation:
     en: 'The game is included in a series of connected worldviews or plots'
     zh-cn: '游戏包含多个世界观、剧情有联系的系列/版本（提示：如果世界观具有其特殊性且相近，即使剧情无联系，则仍然认为是同一系列（类似于数码宝贝1, 3）；如果世界观是一种常见的、朴实的、一般的世界，如“现代日本”，“中世纪欧洲”，则只有当剧情有联系时，才认为是同一系列。这个标签在使用上有时可能会倾向主观而非客观，如果有更多问题，请打开 issue 讨论）'
 
+work-in-process:
+  namespaces: [ misc ]
+  alias: [ ongoing ]
+  explanation:
+    en: 'The game is ongoing'
+    zh-cn: '游戏尚未完结（但有先行预览版本或 Demo）'
+
 died:
   namespaces: [ misc ]
+  alias: [ dead ]
+  conflict: [ work-in-process ]
   explanation:
     en: 'When the game is not finished, the author announced to give up (If this tag exists, please destroy the misc:work-in-process tag)'
     zh-cn: '游戏尚未完成时被作者宣布放弃（此标签存在时，请销毁 misc:work-in-process 标签）'
+
+suspended:
+  namespaces: [ misc ]
+  conflict: [ work-in-process, died ]
+  explanation:
+    en: 'Game development was suspended. When the suspension lasts more than 2 years, you should consider adding `misc:died` and destroying this tag.'
+    zh-cn: '游戏开发被暂停。当暂停持续超过 2 年后，应考虑添加 `misc:died` 并销毁此标签。'
 
 expired:
   namespaces: [ misc ]
@@ -808,13 +1027,12 @@ unofficial:
   namespaces: [ misc ]
   explanation:
     en: 'The game is a unoffical work (such as Morenatsu unoffical ver)'
-    zh-cn: '游戏可能是玩家进行同人创作，如“漏夏（非公式版）”（不要和 misc:mods 混淆）'
+    zh-cn: '游戏可能是玩家进行同人创作，如“漏夏（非公式版）”'
 
-mods:
+moddable:
   namespaces: [ misc ]
   explanation:
-    en: 'This is a mods for a game'
-    zh-cn: '这不是一个完整的游戏，而是游戏的 mods'
+    en: 'This game is moddable.'
 
 unpublished:
   namespaces: [ misc ]
@@ -885,6 +1103,23 @@ homophobia:
     - en: 'The languages supported by the game (using the ISO 639-1 Alpha-2 code)'
       zh-cn: '用于说明游戏的语言（使用 ISO 639-1 Alpha-2 code 标准语言代码）'
 
+ar:
+  namespaces: [ lang ]
+  explanation:
+    en: 'Arabic supporting provided by offical author'
+
+cs:
+  namespaces: [ lang ]
+  explanation:
+    zh-cn: '游戏有官方捷克语版本'
+    en: 'Czech supporting provided by offical author'
+
+de:
+  namespaces: [ lang ]
+  explanation:
+    en: 'German supporting provided by offical author'
+    zh-cn: '游戏有官方德语版本'
+
 en:
   namespaces: [ lang ]
   explanation:
@@ -896,6 +1131,30 @@ en-unofficial:
   explanation:
     en: 'English supporting provided by unoffical source'
     zh-cn: '游戏有非官方英语版本'
+
+es:
+  namespaces: [ lang ]
+  explanation:
+    en: 'Spanish supporting provided by offical author'
+    zh-cn: '游戏有官方西班牙语版本'
+
+fr:
+  namespaces: [ lang ]
+  explanation:
+    en: 'French supporting provided by offical author'
+    zh-cn: '游戏有官方法语版本'
+
+hu:
+  namespaces: [ lang ]
+  explanation:
+    en: 'Hungarian supporting provided by offical author'
+    zh-cn: '游戏有官方匈牙利语版本'
+
+it:
+  namespaces: [ lang ]
+  explanation:
+    en: 'Italian supporting provided by offical author'
+    zh-cn: '游戏有官方意大利语版本'
 
 ja:
   namespaces: [ lang ]
@@ -909,10 +1168,36 @@ ja-unofficial:
     en: 'Japanese supporting provided by unoffical source'
     zh-cn: '游戏有非官方日语版本'
 
+
+ko:
+  namespaces: [ lang ]
+  explanation:
+    en: 'Korean supporting provided by offical author'
+    zh-cn: '游戏有官方韩语版本'
+
+pl:
+  namespaces: [ lang ]
+  explanation:
+    en: 'Polish supporting provided by offical author'
+    zh-cn: '游戏有官方波兰语版本'
+
+pt:
+  namespaces: [ lang ]
+  explanation:
+    en: 'Portuguese supporting provided by offical author'
+    zh-cn: '游戏有官方葡萄牙语版本'
+
 ru:
   namespaces: [ lang ]
   explanation:
-    en: 'STUB'
+    en: 'Russian supporting provided by offical author'
+    zh-cn: '游戏有官方俄语版本'
+
+tr:
+  namespaces: [ lang ]
+  explanation:
+    en: 'Turkish supporting provided by offical author'
+    zh-cn: '游戏有官方土耳其语版本'
 
 zh:
   namespaces: [ lang ]
@@ -942,8 +1227,15 @@ steam:
     en: 'Self-pleasuring.'
     zh-cn: '游戏在 Steam 上有发布'
 
+epic:
+  namespaces: [ publish ]
+  explanation:
+    en: 'Self-pleasuring.'
+    zh-cn: '游戏在 Epic 上有发布'
+
 itchio:
   namespaces: [ publish ]
+  alias: [ itch-io, itch ]
   explanation:
     en: 'Self-pleasuring.'
     zh-cn: '游戏在 itch.io 上有发布'
@@ -986,12 +1278,14 @@ apple-appstore:
 
 e-shop:
   namespaces: [ publish ]
+  alias: [ nintendo-e-shop ]
   explanation:
     en: 'Self-pleasuring.'
     zh-cn: '游戏在 Nintendo E-Shop 上有发布'
 
 gog:
   namespaces: [ publish ]
+  alias: [ gog-com ]
   explanation:
     en: 'Self-pleasuring.'
     zh-cn: '游戏在 gog.com 商店上有发布'
@@ -1026,12 +1320,14 @@ windows:
 
 macos:
   namespaces: [ platform ]
+  alias: [ macintosh, osx, macosx ]
   explanation:
     en: 'Apple macOS'
     zh-cn: '游戏官方支持 Apple macOS'
 
 linux:
   namespaces: [ platform ]
+  alias: [ gnu-linux ]
   explanation:
     en: 'GNU/Linux'
     zh-cn: '游戏官方支持 GNU/Linux'
@@ -1120,6 +1416,12 @@ playstation4:
     en: 'Sony PlayStation 4'
     zh-cn: '游戏官方支持 Sony PlayStation 4'
 
+playstation5:
+  namespaces: [ platform ]
+  explanation:
+    en: 'Sony PlayStation 5'
+    zh-cn: '游戏官方支持 Sony PlayStation 5'
+
 xbox:
   namespaces: [ platform ]
   explanation:
@@ -1137,6 +1439,18 @@ xbox-360:
   explanation:
     en: 'Microsoft Xbox 360'
     zh-cn: '游戏官方支持 Microsoft Xbox 360'
+
+xbox-series-x:
+  namespaces: [ platform ]
+  explanation:
+    en: 'Microsoft Xbox Series X'
+    zh-cn: '游戏官方支持 Microsoft Xbox Series X'
+
+xbox-series-s:
+  namespaces: [ platform ]
+  explanation:
+    en: 'Microsoft Xbox Series S'
+    zh-cn: '游戏官方支持 Microsoft Xbox Series S'
 
 
 ###################################################

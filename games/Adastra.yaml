@@ -14,11 +14,17 @@ description: |
 
 description-format: markdown
 
+authors:
+  - name: The Echo Project
+    role: [ producer ]
+  - name: Howly
+    role: [ screenwriter ]
+  - name: HAPS
+    role: [ artist ]
+  - name: Black Sun Di
+    role: [ artist ]
+
 tags:
-  author:
-    - 'The Echo Project'
-    - HAPS
-    - Blacksun
   type:
     - visual-novel
     - bara
@@ -58,10 +64,10 @@ links:
     uri: patreon:EchoGame
   - name: .twitter
     uri: twitter:EchoTheVN 
-  - name: .unofficial-patch-zh-cn
+  - name: .unofficial-patch-zh
     icon: twitter
     uri: https://twitter.com/ABLocalization/status/1272934863977345025
-  - name: .unofficial-patch-zh-cn
+  - name: .unofficial-patch-zh
     icon: weibo
     uri: https://weibo.com/7429628292/J6V5SACH8
 

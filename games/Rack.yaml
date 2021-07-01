@@ -9,9 +9,11 @@ description: |
 
 description-format: markdown
 
+authors:
+  - name: fek
+    role: [ producer, artist, programmer ]
+
 tags:
-  author:
-    - fek
   type:
     - business-sim
     - bara
@@ -72,7 +74,7 @@ links:
     uri: http://www.fek.onl/
   - name: Get on Furaffinity
     icon: furaffinity
-    uri: https://www.furaffinity.net/view/18723806/
+    uri: https://www.furaffinity.net/view/41023638/
   - name: .twitter
     uri: twitter:fekfekfekfek
 

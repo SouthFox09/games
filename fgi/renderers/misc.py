@@ -18,54 +18,79 @@
 # 
 
 import os
+import re
 from datetime import datetime
-from markdown2 import Markdown
-from fgi.seo.sitemap import openw_with_sm
 
-context= {
-    "rr": "..",
-}
+from fgi.renderer import Renderer
+from fgi.i18n import conv_doc_markdown
+from fgi.link import Link
+from fgi.base import find_local_file
 
-def render(games, env, lctx, output):
-    context.update(lctx)
-    language = lctx["lang"]
+class RendererMisc(Renderer):
+    def __init__(self, *args, **kwargs):
+        self.basectx = {
+            "rr": "..",
+            "datetime": datetime,
+        }
 
-    context["datetime"] = datetime
+        super().__init__(*args, **kwargs)
 
-    markdowner = Markdown()
+    def render(self):
+        env = self.env
 
-    context["active_search"] = "actived"
-    context["noindex"] = True
-    with open(os.path.join(output, language, "search.html"), "w") as f:
-        f.write(env.get_template("header.html").render(context))
-        f.write(env.get_template("search.html").render(context))
-        f.write(env.get_template("footer.html").render(context))
-    del context["active_search"]
-    del context["noindex"]
+        # search.html
 
-    context["active_index"] = "actived"
-    with openw_with_sm(output, os.path.join(language, "index.html"), priority="0.6") as f:
-        f.write(env.get_template("header.html").render(context))
-        f.write(env.get_template("index.html").render(context))
-        f.write(env.get_template("footer.html").render(context))
-    del context["active_index"]
+        context = self.new_context()
+        context["active_search"] = "activated"
+        context["noindex"] = True
+        with open(self.getpath("search.html"), "w") as f:
+            f.write(env.get_template("search.html").render(context))
 
-    faq_source = "doc/faq." + language + ".md"
-    if not os.path.exists(faq_source):
-        faq_source = "doc/faq.en.md"
-    with open(faq_source) as f:
-        context["content"] = markdowner.convert(f.read())
-    context["active_faq"] = "actived"
-    with openw_with_sm(output, os.path.join(language, "faq.html"), priority="0.4",
-            lastmod_file=faq_source) as f:
-        f.write(env.get_template("header.html").render(context))
-        f.write(env.get_template("simple_md.html").render(context))
-        f.write(env.get_template("footer.html").render(context))
-    del context["active_faq"]
-    del context["content"]
+        # index.html
 
-    with openw_with_sm(output, os.path.join(language, "sensitive.html"), priority="0.2",
-            lastmod_file="templates/sensitive.html") as f:
-        f.write(env.get_template("header.html").render(context))
-        f.write(env.get_template("sensitive.html").render(context))
-        f.write(env.get_template("footer.html").render(context))
+        context = self.new_context()
+        context["active_index"] = "activated"
+        with self.sm_openw("index.html", priority="0.6") as f:
+            f.write(env.get_template("index.html").render(context))
+
+        # faq.html
+
+        context = self.new_context()
+        context["content"] = conv_doc_markdown(self.fctx, "faq", self.language)
+        context["active_faq"] = "activated"
+        with self.sm_openw("faq.html", priority="0.4") as f:
+            f.write(env.get_template("simple_md.html").render(context))
+
+        # search_help.html
+
+        def _add_search_icon_link(m):
+            c = m.group(1)
+            if not c.endswith(":"):
+                icon = self.fctx.ifac.misc_icon("search")
+                return f"`{c}` <a target='_blank' href='search.html?tagx?{c}'>{icon}</a>"
+            else:
+                return f"`{c[:-1]}`"
+
+        context = self.new_context()
+        context["content"] = conv_doc_markdown(self.fctx, "search_help", self.language,
+            callback=lambda c: re.sub(r'`(.*?)`', _add_search_icon_link, c))
+        context["extra_styles"] = context["content"].metadata["styles"]
+
+        with self.sm_openw("search_help.html", priority="0.5") as f:
+            f.write(env.get_template("simple_md.html").render(context))
+
+        # sensitive.html
+
+        context = self.new_context()
+        with self.sm_openw("sensitive.html", priority="0.2",
+                lastmod_file=find_local_file(self.fctx.dir_templates, ['sensitive.html'])) as f:
+            f.write(env.get_template("sensitive.html").render(context))
+
+        # preferences.html
+
+        context = self.new_context()
+        with self.sm_openw("preferences.html", priority="0.2",
+                lastmod_file=find_local_file(self.fctx.dir_templates, ['preferences.html'])) as f:
+            f.write(env.get_template("preferences.html").render(context))
+
+impl = RendererMisc

@@ -19,115 +19,75 @@
 
 import os
 import re
-from fgi import image
-from fgi.i18n import get
-from fgi.i18n import get_desc
-from fgi.link import link_info
-from fgi.seo.sitemap import openw_with_sm
+from html import escape
+
+from fgi.base import make_wrapper
+from fgi.renderer import Renderer
 from fgi.seo import keywords
 
-def checktag(game, namespace, value):
-    return value in game["tags"].get(namespace, {})
+class RendererGame(Renderer):
+    def __init__(self, *args, **kwargs):
+        self.basectx = {
+            "rr": "../..",
+        }
 
-platform_icons = {
-    "web": '<i title="Web" class="fab fa-safari fa-fw"></i>',
-    "windows": '<i title="Microsoft Windows" class="fab fa-windows fa-fw"></i>',
-    "macos": '<i title="Apple macOS" class="fab fa-apple fa-fw"></i>',
-    "linux": '<i title="GNU/Linux" class="fab fa-linux fa-fw"></i>',
-    "android": '<i title="Android" class="fab fa-android fa-fw"></i>',
-    "ios": '<i title="Apple iOS" class="fab fa-app-store-ios fa-fw"></i>',
-    "playstation": '<i title="Playstation" class="fab fa-playstation fa-fw"></i>',
-    "playstation2": '<i title="Playstation 2" class="fab fa-playstation fa-fw"></i>',
-    "playstation3": '<i title="Playstation 3" class="fab fa-playstation fa-fw"></i>',
-    "playstation4": '<i title="Playstation 4" class="fab fa-playstation fa-fw"></i>',
-    "psv": '<i title="Playstation Vita" class="fab fa-playstation fa-fw"></i>',
-    "psp": '<i title="Playstation Portable" class="fab fa-playstation fa-fw"></i>',
-    "xbox": '<i title="Xbox" class="fab fa-xbox fa-fw"></i>',
-    "xbox-one": '<i title="Xbox One" class="fab fa-xbox fa-fw"></i>',
-    "xbox-360": '<i title="Xbox 360" class="fab fa-xbox fa-fw"></i>',
-}
+        super().__init__(*args, **kwargs)
 
-context = {
-    "rr": "../..",
-    "image": image,
-    "get": get,
-    "get_desc": get_desc,
-    "link_info": link_info,
-    "checktag": checktag,
-    "platform_icons": platform_icons
-}
+        self.games = self.lctx["games"]
+        self.authors = self.lctx["authors"]
+        self.author_game_map = self.lctx["author_game_map"]
+        self.context = self.new_context()
 
-def author_widget(game, sdb, games):
-    name = game["id"]
-    rtag = sdb.db["rtag"]
-    data = {}
-    ga = {}
+    def new_game_context(self):
+        return self.context.copy()
 
-    for author in game["tags"].get("author", []):
-        key = f"author:{author}"
-        if key in rtag:
-            tmp = rtag[key]
+    def author_widget(self, game):
+        gid = game.id
+        data = {}
+        ga = {}
 
-            for i in tmp:
-                if i != name:
-                    if i not in ga:
-                        ga[i] = set()
-                    ga[i].add(author)
+        for author in game.authors:
+            aname = author.name
+            if aname in self.author_game_map:
+                for g in self.author_game_map[aname]:
+                    i = g.id
+                    if i != gid:
+                        if i not in ga:
+                            ga[i] = set()
+                        ga[i].add(aname)
 
-    for gid, au in ga.items():
-        authornames = ", ".join(sorted(au))
-        if authornames not in data:
-            data[authornames] = []
-        data[authornames].append(games[gid])
+        for gid, au in ga.items():
+            authornames = ", ".join(sorted(au))
+            if authornames not in data:
+                data[authornames] = []
+            data[authornames].append(self.games[gid])
 
-    return data
+        return data
 
-def get_mtime(game, language):
-    if language in game["tr"]:
-        return max(game["tr"][language]["mtime"], game["mtime"])
-    else:
-        return game["mtime"]
+    def render_game(self, gid, game):
+        print("  => %s" % gid)
+        context = self.new_game_context()
 
-def render(games, env, lctx, output):
-    context.update(lctx)
-    language = lctx["lang"]
-
-    meta = {}
-    context["meta"] = meta
-
-    lang_without_region = language
-    if '-' in lang_without_region:
-        lang_without_region = lang_without_region.split('-')[0]
-
-    context["lang_without_region"] = lang_without_region
-
-    for name, game in games.items():
         context["game"] = game
-        context["name"] = name
-        print("  => %s" % name)
+        context["name"] = gid
+        context["author_widget"] = self.author_widget(game)
 
-        context["author_widget"] = author_widget(game, lctx["searchdb"], games)
-
-        if 'expunge' in game:
+        if game.expunge:
             context["noindex"] = True
 
-        meta["title"] = get(game, language, 'name')
-        desc = get(game, language, 'description')[:200].replace('\n', '') + "..."
-        meta["description"] = re.sub(r'<[^<]*>', '', desc)
-        meta["image"] = image.uri(context["rr"], game["thumbnail"], name)
+        meta = dict()
+        meta["title"] = game.get_name(self.language)
+        meta["description"] = escape(game.get_description(self.language).brief_sl)
+        meta["image"] = game.thumbnail.with_rr(context["rr"]).src
+        meta["extra_keywords"] = keywords.game_page_extra_keywords(game, context["ui"])
+        context["meta"] = meta
 
-        meta["extra_keywords"] = keywords.game_page_extra_keywords(game, lctx["ui"])
+        return self.env.get_template("game.html").render(context)
 
-        if 'expunge' in game:
-            f = open(os.path.join(output, language, "games", name + ".html"), "w")
-        else:
-            f = openw_with_sm(output, os.path.join(language, "games", name + ".html"),
-                    priority="0.7", lastmod_ts=get_mtime(game, language))
+    def render(self):
+        for gid, game in self.games.items():
+            with self.sm_openw("games", gid + ".html", sm = not game.expunge,
+                    priority="0.7", lastmod_ts=game.get_mtime(self.language)) as f:
+                f.write(self.render_game(gid, game))
 
-        f.write(env.get_template("header.html").render(context))
-        f.write(env.get_template("game.html").render(context))
-        f.write(env.get_template("footer.html").render(context))
-        f.close()
-
-        if "noindex" in context:
-            del context["noindex"]
+impl = RendererGame

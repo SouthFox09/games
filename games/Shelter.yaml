@@ -14,14 +14,19 @@ description: |
   For the most up-to-date build check out: [https://www.patreon.com/raus](https://www.patreon.com/raus) where I post like a month in advance. It also gives you an invitation to our amazing Discord den where I post extra content and we have chill times. :)
   
   If you'd like to follow me on FA and Twitter, I have those too!
+  
   - FA: [https://www.furaffinity.net/user/raus/](https://www.furaffinity.net/user/raus/)
   - Twitter: [https://twitter.com/](https://twitter.com/rausmutt) (nsfw) and [https://twitter.com/Vuffski](https://twitter.com/Vuffski) (sfw)
 
   Awoo~!
 
+description-format: markdown
+
+authors:
+  - name: Raus
+    role: [ producer, screenwriter, artist, musician ]
+
 tags:
-  author:
-    - rausmutt
   type:
     - visual-novel
     - bara
@@ -29,6 +34,7 @@ tags:
   male:
     - dog
     - wolf
+    - humankind
     - muscle
     - males-only
     - masturbation
@@ -38,6 +44,7 @@ tags:
     - uncensored
   lang:
     - en
+    - zh-unofficial
   publish:
     - itchio
     - patreon
@@ -59,6 +66,9 @@ links:
     uri: twitter:Vuffski
   - name: .furaffinity
     uri: furaffinity:raus
+  - name: .unofficial-version-zh
+    icon: telegram
+    uri: https://t.me/ldlocalization/21
 
 thumbnail: thumbnail.jpg
 

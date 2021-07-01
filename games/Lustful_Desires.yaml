@@ -82,31 +82,48 @@ description: |
 
 description-format: markdown
 
+authors:
+  - name: Hyao
+    role: [ producer, screenwriter, programmer ]
+  - name: Zoroj
+    role: [ artist ]
+  - name: Gavel
+    role: [ artist ]
+
 tags:
-  author:
-    - Hyao
   type:
     - visual-novel
     - adventure
     - bara
-    - yuri
     - yiff
   male:
     - dragon
     - bull
     - mouse
+    - horse
     - wolf
     - lizard
+    - red-panda
     - humankind
     - anal
+    - human-on-furry
+    - animal-on-furry
+    - transfur
+    - group
+    - blowjob
+    - frottage
+    - master-slave
   female:
     - humankind
   misc:
     - engine-renpy
+    - uncensored
+    - multiple-endings
     - not-only-furry-topic
     - work-in-process
   lang:
     - en
+    - zh-unofficial
   publish:
     - itchio
     - patreon
@@ -118,11 +135,14 @@ tags:
 
 links:
   - name: .itch.io
-    uri: https://hyao.itch.io/lustful-desires-
+    uri: https://hyao.itch.io/lustful-desires
   - name: .patreon
     uri: patreon:hyao
   - name: .discord
     uri: https://discord.gg/Xe32FDr
+  - name: .unofficial-version-zh
+    icon: telegram
+    uri: https://t.me/ldlocalization
 
 thumbnail: thumbnail.jpg
 

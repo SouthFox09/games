@@ -16,14 +16,34 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 0
+        submodules: true
 
     - name: install-dep
       run: |
         sudo apt -y update || true
-        sudo apt -y install git python3 python3-yaml python3-jinja2 python3-pip python3-setuptools python3-pil
+        sudo apt -y install git python3 python3-yaml python3-jinja2 python3-pip python3-setuptools python3-pil python3-bs4 python3-jsonschema
         pip3 install --user git+https://github.com/FurryGamesIndex/python-markdown2
+
+    - name: validate
+      env:
+        BASE_REF: ${{ github.event.pull_request.base.sha }}
+      run: |
+        IFS=$'\n'
+        dfs="$(git diff --name-only --diff-filter=AMR "$BASE_REF")"
+
+        echo "$dfs" | grep '^games/[^/]*$' | while read -r i; do
+          echo "Validating '$i'"
+          ./scripts/validate.py schemas/game.schema.yaml "$i"
+          gid=$(echo "$i" | cut -d / -f 2 | cut -d . -f 1)
+          ./scripts/imageutils.sh validate-thumbnail $(echo -n "assets/${gid}/"; ./scripts/dbutils.sh game-get-property "$gid" thumbnail)
+        done
+        echo "$dfs" | grep '^games/l10n/[^/]*$' | while read -r i; do
+          echo "Validating '$i'"
+          ./scripts/validate.py schemas/game-l10n.schema.yaml "$i"
+        done
 
     - name: gen
       run: |
         python3 --version
-        ./generate.py --no-searchdb --no-sitemap "output/${ID}/"
+        ./generate.py --no-searchdb --no-sitemap --plugin steam-cdn-unite,verbose=1 "output/${ID}/"

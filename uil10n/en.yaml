@@ -18,23 +18,28 @@ nav_faq: FAQ
 nav_contributors: Contributors
 nav_languages: Languages
 
-copying_area_tip: Found something missing or wrong? Or want to add a game to this list? <a href="https://github.com/FurryGamesIndex/games/blob/master/doc/Contribute.en.md">Contribute now</a>!
+copying_area_tip: Found something missing or wrong? want to add new games? Or want to improve FurryGamesIndex? <a href="https://github.com/FurryGamesIndex/games/blob/master/doc/Get-Involved.en.md">Get Involved</a> now!
 copying_area_copyright: Copyright The FurryGamesIndex project, The data on this site is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC-BY-NC-SA 4.0</a>. The copyright of some data (such as game screenshots) belongs to the original owner. We only release them under the premise of <a href="https://en.wikipedia.org/wiki/Fair_use">fair use</a>.
+copying_preferences: Site Preferences
 copying_privacy_policy: Privacy Policy
 copying_oss: Powered by Open-source softwares
 copying_rss: RSS Feed
 
-index_content: >
-  <h1>FurryGamesIndex - Find the best furry &amp; kemono games</h1>
+warnbox_javascript_required: Some or all of the features on this page require JavaScript to work properly.
+
+index_v2_header: >
+  <h1>FurryGamesIndex</h1>
+  <h2>Find the best furry &amp; kemono games</h2>
+index_v2_content: >
   <p>FGI (short for FurryGamesIndex) is a project to collect, organize, classify, tag games which are "furry games" or include furry and/or kemono contents. Also collect third-party localized resource links for these games.</p>
   <p>The motive for creating this project was that Lucky Doge gave up his <a href="https://doge.im/recommend/kemono-games.html">Furry Game Collection</a> project, and Utopic Panther once benefited from the project of Lucky Doge, and trying to rebuild a game collection on the Internet. Lucky Doge <a href="https://github.com/FurryGamesIndex/games/blob/master/luckydoge.txt">generously provided the results that he had made a lot of hard work</a>, making it possible for this project to quickly develop into a practical list.</p>
-  <p>The project pays more attention to maintainability, encourages community participation, provides convenient infrastructure for community participation and improves ease of use (such as tagging and search functions), and may also do voting and discussion in the future.</p>
+  <p>We want you to be part of this project. <a href="https://github.com/FurryGamesIndex/games/blob/master/doc/Get-Involved.zh-cn.md">get involved now</a>.</p>
 
 index_link_games: Show all games
 index_link_search: Search games by text or tags
 index_link_contribute: Get Involved with us
 index_link_contributors: Contributors list
-index_link_github: Github Repository
+index_link_github: Github Project
 index_link_tg: Telegram Channel/Groups
 
 search_searching: Searching...
@@ -45,7 +50,7 @@ search_form_mode_title: Search titles
 search_form_mode_tindes: Search titles and descriptions
 search_form_mode_tag: Search tags
 search_form_do: Search
-search_help_link: Instructions for using the searching
+search_help_link: Search Help
 
 gamewarn_yiff: This game may contain sensitive content or may not be appropriate for viewing at work.
 gamewarn_nolang: This game may not contain English language localizations
@@ -53,6 +58,7 @@ gamewarn_lang_unofficial: English language localization is provided by a third p
 gamewarn_ongoing: This game is an ongoing project
 gamewarn_unpublished: This game has NOT been released yet
 gamewarn_died: This game is probably dead before completion
+gamewarn_suspended: Development of this game is suspended
 gamewarn_expired: Access to the game is no longer available
 gamewarn_notonlyfurry: This game is not just about Furry topics. This means you may not like this game.
 gamewarn_deprecated_shockwave_flash: Flash Player required
@@ -60,8 +66,15 @@ gamewarn_deprecated_shockwave_flash: Flash Player required
 game_author_widget_more_from: 'More games from <b>%s</b>:'
 
 game_edit: Edit this page
-game_contact_us: Contant FurryGamesIndex project by
+game_share_twitter: Share on Twitter
+game_share_twitter_text: View game "{name}" on FurryGamesIndex.
+game_contact_us: Contact FurryGamesIndex project by
 game_sensitive_warning: The current page may contain sensitive medias, and they have been hidden. <a href="%s/%s/sensitive.html">Manage sensitive content settings</a>
+
+warnbox_staging: This is a page under construction, and its content may incompatibly change in the future.
+noticebox_tagme: This page is known to be missing important tags. Please help to add tags. <br><a href="https://github.com/FurryGamesIndex/games/blob/master/doc/Contribute.en.md">Contribution guide</a>&nbsp;&nbsp;<a href="https://github.com/FurryGamesIndex/games/blob/master/doc/tags.en.md">Tags list and explanation</a>
+warnbox_expunge: This page is expunged from list and search.
+noticebox_replacedby: This game has been replaced by <a href="%s">%s</a>. Therefore, it will not be displayed on the list page.
 
 sensitive_page_tip: |
   This will enable the display of sensitive content on all FGI pages.<br>
@@ -69,17 +82,22 @@ sensitive_page_tip: |
   You must use a modern browser and enable JavaScript.<br>
   After modifying this setting, you need to refresh the page to take effect.
 
-warnbox_staging: This is a page under construction, and its content may incompatibly change in the future.
-noticebox_tagme: This page is known to be missing important tags. Please help to add tags. <br><a href="https://github.com/FurryGamesIndex/games/blob/master/doc/Contribute.en.md">Contribution guide</a>&nbsp;&nbsp;<a href="https://github.com/FurryGamesIndex/games/blob/master/doc/tags.en.md">Tags list and explanation</a>
-warnbox_expunge: This page is expunged from list and search.
+preferences_h1: Preferences
+preferences_sensitive_h2: Sensitive content settings
+preferences_sensitive: Please navigate to <a href="sensitive.html">here</a>. On some mirror sites, this preference may not be allowed to be modified.
+preferences_steam_widget_h2: Steam Store Widget
+preferences_steam_widget: Show Steam Store Widget
+preferences_steam_widget_tip: If possible, the Steam Store Widget will be displayed on the game page. This may make it easier for you to see the current price of the game sell on Steam directly on FGI, but please note that the Steam Store Widget may use third-party cookies to track you. <a target="_blank" href="https://store.steampowered.com/privacy_agreement/">Valve Privacy Policy Agreement</a>.
 
 rss_desc: RSS Feed will push the last 30 game pages added or edited in chronological order.
 
 stock-link-website: Official Website
 stock-link-release-page: Release page
 stock-link-steam: Get on Steam
+stock-link-epic: Get on Epic
 stock-link-itch.io: Get on itch.io
 stock-link-booth: Get on booth
+stock-link-digiket: Get on Digiket
 stock-link-play-store: Get on Google Play
 stock-link-apple-appstore: Get on Apple Appstore
 stock-link-nintendo-e-shop: Get on Nintendo E-Shop
@@ -93,7 +111,54 @@ stock-link-weibo: Official Weibo
 stock-link-tumblr: Official Tumblr
 stock-link-pixiv: Official Pixiv
 stock-link-discord: Official Discord
-stock-link-unofficial-patch-zh-cn: Unofficial Simplified Chinese patch
-stock-link-unofficial-ver-zh-cn: Unofficial Simplified Chinese version
-stock-link-unofficial-patch-zh-tw: Unofficial Traditional Chinese patch
-stock-link-unofficial-ver-zh-tw: Unofficial Traditional Chinese version
+stock-link-youtube: Official YouTube
+stock-link-facebook: Official Facebook
+stock-link-unofficial-patch-en: Unofficial English patch
+stock-link-unofficial-version-en: Unofficial English version
+stock-link-unofficial-patch-zh: Unofficial Chinese patch
+stock-link-unofficial-version-zh: Unofficial Chinese version
+stock-link-demo-version: Get Demo version
+stock-link-demo-version-steam: Get Demo version from Steam
+stock-link-demo-version-gog.com: Get Demo version from gog.com
+stock-link-unofficial-archived-download: Download (Unofficial archive)
+
+author-role-producer: Producer
+author-role-screenwriter: Screenwriter
+author-role-programmer: Programmer
+author-role-artist: Artist
+author-role-musician: Musician
+author-role-voice-actor: Voice actor
+author-role-character-designer: Character designer
+author-role-scenographer: Scenographer
+author-role-translator: Translator
+author-role-publisher: Publisher
+author-role-others: Others
+
+list-klass-genre: "Genre:"
+list-klass-genre-all: All
+list-klass-genre-vn-ds: Visual Novel/Dating-sim
+list-klass-genre-action: Action
+list-klass-genre-rpg: Role Playing
+list-klass-genre-adventure: Adventure
+list-klass-genre-fighting: Fighting
+list-klass-genre-shooter: Shooter
+list-klass-genre-puzzle: Puzzle
+list-klass-genre-others: Others
+list-klass-orientation: "Orientation:"
+list-klass-orientation-all: All
+list-klass-orientation-bara: Gay
+list-klass-orientation-yuri: Lesbian
+list-klass-orientation-others: Others
+list-klass-platform: "Platform:"
+list-klass-platform-all: All
+list-klass-platform-desktop: Desktop
+list-klass-platform-mobile: Mobile
+list-klass-platform-web: Web
+list-klass-platform-console: Console
+list-klass-status: "Status:"
+list-klass-status-all: All
+list-klass-status-released: Released
+list-klass-status-others: Others
+list-klass-view: "View:"
+list-klass-view-standard: Standard
+list-klass-view-complex: Complex
